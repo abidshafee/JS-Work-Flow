@@ -17,7 +17,7 @@ console.log(`Using Arrow Function: ${square2(9)}`)
 const jobs = [
     {id: 1, isActive: true},
     {id: 2, isActive: false},
-    {id:3, isActive: true}
+    {id: 3, isActive: true}
 ];
 
 const activeJobs = jobs.filter(function(job){return job.isActive});
