@@ -1,17 +1,33 @@
-function Circle(radius){
-    this.radius = radius;
-
-    // So, If we want to hide a property
-    // instead to delaring as this.propertyName -
-    // we should declare it using let keyword
-    let hdnProp = {
-        x: 1,
-        y: 2
+const person = {
+    firstName: 'Shafekul',
+    lastName: 'Abid',
+    fullName() {
+        return `${person.firstName} ${person.lastName}`;
     }
-
-    // Here hdnProp is a Private Property
-    // Creating method to set value for the private property
-    this.setValueForHdnProp = Function () {
-        //pass
-    };
 }
+
+console.log(person.fullName())
+
+//getter => to access property of an object
+//setter => to change property value if needed
+const personGetSet = {
+    firstName: 'Shafekul',
+    lastName: 'Abid',
+    // For Getter just use the get keyword before the function
+    get fullName() {
+        return `${personGetSet.firstName} ${personGetSet.lastName}`;
+    },
+    //Adding the setter to change to property firstName and lastName from the outside
+    set fullName(value) { // the set accessor must have atleast 1 parameter
+        //let new value is assigned 'Abid Shafee'
+        // So we'll split them to assign seperately to firstName and lastName property
+        const parts = value.split(' ');
+        this.firstName = parts[0];
+        this.lastName = parts[1];
+    }
+}
+//Set new value to personGetSet
+personGetSet.fullName = 'Abid Shafee';
+
+//the get keyword allows us to access the function fullName like a property
+console.log(personGetSet.fullName)
