@@ -38,6 +38,11 @@ let flights = [
       }
 ];
 
+const destinations = ["TOKYO", "FRANKFURT", "DUBAI", "LONDON", "OMAN", "BEIRUTH"];
+const remarks = ["ON TIME", "DELAYED", "CANCELLED"]
+let hour = 15;
+
+// generating table data
 function populateTbl(){
     for(const flight of flights){
         const tblRow = document.createElement("tr");
@@ -47,11 +52,16 @@ function populateTbl(){
             //breaking the data further into latter
             const word = Array.from(flight[eachFlightdetail]);
 
-            for(const letter of word){
+            for(const [index, letter] of word.entries()){
                 const ltrElement = document.createElement('div');
+
+                //set Amination for each latter
+                setTimeout(()=>{
                 ltrElement.classList.add('flip');
                 ltrElement.textContent = letter;
                 tblCell.append(ltrElement);
+                }, 100*index)
+                
             }
 
             //tblCell.innerText = flight[eachFlightdetail];
@@ -61,5 +71,22 @@ function populateTbl(){
         tblBody.append(tblRow);
     }
 }
-
+//calling the populate table function
 populateTbl();
+
+function generateRandomLetter(){
+  const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+  return alphabet.charAt(Math.floor(Math.random()*alphabet.length));
+}
+
+function shuffleUp(){
+  flights.shift()
+  flights.push({
+    time: generateTime(),
+    destination: destinations[Math.floor(Math.random()*destinations.length)],
+    flight: "",
+    gate: generateRandomLetter()+" "+generateRandomNumber()+generateRandomNumber(),
+    remarks: remarks[Math.floor(Math.random()*remarks.length)]
+
+  })
+}
