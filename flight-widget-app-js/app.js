@@ -72,11 +72,35 @@ function populateTbl(){
     }
 }
 //calling the populate table function
-populateTbl();
+//populateTbl();
 
 function generateRandomLetter(){
   const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
   return alphabet.charAt(Math.floor(Math.random()*alphabet.length));
+}
+
+function generateRandomNumber(maxNumber){
+  const numbers = "0123456789";
+  if(maxNumber) {
+    const newNumber = numbers.slice(0, maxNumber+1)
+    return newNumber.charAt(Math.floor(Math.random()*newNumber.length))
+  }
+  return numbers.charAt(Math.floor(Math.random()*numbers.length));
+}
+
+function generateTime(){
+  let dispHour = hour;
+  if(hour < 24){
+    hour++
+  }
+  if (hour >= 24){
+    hour = 1;
+    dispHour = hour;
+  }
+  if (hour<10){
+    dispHour = "0" + hour;
+  }
+  return dispHour + ":" + generateRandomNumber(5)+generateRandomNumber();
 }
 
 function shuffleUp(){
@@ -84,9 +108,12 @@ function shuffleUp(){
   flights.push({
     time: generateTime(),
     destination: destinations[Math.floor(Math.random()*destinations.length)],
-    flight: "",
+    flight: generateRandomLetter()+generateRandomLetter() + " " +generateRandomNumber() + generateRandomNumber(),
     gate: generateRandomLetter()+" "+generateRandomNumber()+generateRandomNumber(),
-    remarks: remarks[Math.floor(Math.random()*remarks.length)]
-
-  })
+    remarks: remarks[Math.floor(Math.random()*remarks.length)],
+  });
+  tblBody.textContent = "";
+  populateTbl();
 }
+
+setInterval(shuffleUp(), 1000);
